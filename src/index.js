@@ -6,4 +6,4 @@ import "./style.css";
 // import { initUI } from './classes.js';
 
 //import user interface
-import { initUI } from "../userInterface";
+import { changePage } from "../userInterface";
