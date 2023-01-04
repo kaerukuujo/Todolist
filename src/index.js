@@ -2,8 +2,7 @@
 import "./style.css";
 
 //import user interface
-import { changePage } from "../userInterface";
-import { importAll } from "../userInterface";
+import { changePage, importAllLeftIcons, importAllRightIcons } from "../userInterface";
 
 // check for user local save
 // populate project arrays with save data, or from a default if there are none in save
@@ -34,7 +33,7 @@ const newTodo = new todos({
 
 });
 
-console.log(newTodo);
-let notifDiv = document.querySelector('#notifIcon');
-window.onload = importAll();
-
+window.onload = () => {
+    importAllRightIcons();
+    importAllLeftIcons();
+};

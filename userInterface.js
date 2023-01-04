@@ -1,13 +1,74 @@
 import { makeProject } from "./classes";
 import { makeTodo } from "./classes";
-import notifIconImg from './src/img/bell-badge.png';
 
 //import all images in img folder
-export function importAll() {    
+import notifIconImg from './src/img/bell-badge.png';
+import notifActiveIconImg from './src/img/bell.png';
+import calendarTodayImg from './src/img/calendar-alert.png';
+import calendarUpcomingImg from './src/img/calendar-blank-multiple.png';
+import emailIconImg from './src/img/email.png';
+import helpIconImg from './src/img/help.png';
+import homeIconImg from './src/img/home.png';
+import searchIconImg from './src/img/magnify.png';
+import menuIconImg from './src/img/menu.png';
+import plusIconImg from './src/img/plus.png';
+import progressIconImg from './src/img/progress-pencil.png';
+import profilePictureImg from './src/img/profile.png';
+
+//assign images to icons
+let rightMenu = document.querySelector('.rightMenu');
+let leftMenu = document.querySelector('.leftMenu');
+let defaultSideBar = document.querySelector('.defaultSideBar');
+
+export function importAllLeftIcons() {
+    //empty left menu placeholders
+    leftMenu.innerHTML = '';
+
+    let menuIcon = new Image();
+    menuIcon.src = menuIconImg;
+    menuIcon.setAttribute('class', 'navBut');
+    leftMenu.appendChild(menuIcon);
+
+    let homeIcon = new Image();
+    homeIcon.src = homeIconImg;
+    homeIcon.setAttribute('class', 'navBut');
+    leftMenu.appendChild(homeIcon);
+
+    let searchIcon = new Image();
+    searchIcon.src = searchIconImg;
+    searchIcon.setAttribute('class', 'navBut');
+    leftMenu.appendChild(searchIcon);
+};
+
+export function importAllRightIcons() {  
+    //empty right menu placeholders
+    rightMenu.innerHTML = '';
+
+    let addIcon = new Image();
+    addIcon.src = plusIconImg;
+    addIcon.setAttribute('class', 'navBut')
+
+    let progressIcon = new Image();
+    progressIcon.src = progressIconImg;
+    progressIcon.setAttribute('class', 'navBut')
+
+    let helpIcon = new Image();
+    helpIcon.src = helpIconImg;  
+    helpIcon.setAttribute('class', 'navBut')  
+
     let notifIcon = new Image();
     notifIcon.src = notifIconImg;
-    let htmlinfo = document.querySelector('body').innerHTML;
-    console.log(htmlinfo)
+    notifIcon.setAttribute('class', 'navBut')
+    
+    let profilePicture = new Image();
+    profilePicture.src = profilePictureImg;
+    profilePicture.setAttribute('class', 'navBut')
+
+    rightMenu.appendChild(addIcon);
+    rightMenu.appendChild(progressIcon);
+    rightMenu.appendChild(helpIcon);
+    rightMenu.appendChild(notifIcon);
+    rightMenu.appendChild(profilePicture);
 };
 
 
