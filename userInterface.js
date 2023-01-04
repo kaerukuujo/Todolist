@@ -1,5 +1,17 @@
 import { makeProject } from "./classes";
 import { makeTodo } from "./classes";
+import notifIconImg from './src/img/bell-badge.png';
+
+//import all images in img folder
+export function importAll() {    
+    let notifIcon = new Image();
+    notifIcon.src = notifIconImg;
+    let htmlinfo = document.querySelector('body').innerHTML;
+    console.log(htmlinfo)
+};
+
+
+
 
 let landingPage = document.querySelector('.landingPage');
 let projectPage = document.querySelector('.projectPage');
