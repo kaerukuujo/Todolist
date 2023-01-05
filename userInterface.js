@@ -18,58 +18,121 @@ import profilePictureImg from './src/img/profile.png';
 //assign images to icons
 let rightMenu = document.querySelector('.rightMenu');
 let leftMenu = document.querySelector('.leftMenu');
+let sideMenu = document .querySelector('.sideMenu');
 let defaultSideBar = document.querySelector('.defaultSideBar');
+export function initSideMenu(){
+    function initialSetup(){
+        sideMenu.id = '';
+        defaultSideBar.innerHTML = '';
+        defaultSetup();
+    };
 
-export function importAllLeftIcons() {
-    //empty left menu placeholders
-    leftMenu.innerHTML = '';
-
-    let menuIcon = new Image();
-    menuIcon.src = menuIconImg;
-    menuIcon.setAttribute('class', 'navBut');
-    leftMenu.appendChild(menuIcon);
-
-    let homeIcon = new Image();
-    homeIcon.src = homeIconImg;
-    homeIcon.setAttribute('class', 'navBut');
-    leftMenu.appendChild(homeIcon);
-
-    let searchIcon = new Image();
-    searchIcon.src = searchIconImg;
-    searchIcon.setAttribute('class', 'navBut');
-    leftMenu.appendChild(searchIcon);
+    initialSetup();    
 };
 
-export function importAllRightIcons() {  
-    //empty right menu placeholders
-    rightMenu.innerHTML = '';
-
-    let addIcon = new Image();
-    addIcon.src = plusIconImg;
-    addIcon.setAttribute('class', 'navBut')
-
-    let progressIcon = new Image();
-    progressIcon.src = progressIconImg;
-    progressIcon.setAttribute('class', 'navBut')
-
-    let helpIcon = new Image();
-    helpIcon.src = helpIconImg;  
-    helpIcon.setAttribute('class', 'navBut')  
-
-    let notifIcon = new Image();
-    notifIcon.src = notifIconImg;
-    notifIcon.setAttribute('class', 'navBut')
+export function initHeadNav(){
+    function importAllLeftIcons() {
+        //empty left menu placeholders
+        leftMenu.innerHTML = '';
     
-    let profilePicture = new Image();
-    profilePicture.src = profilePictureImg;
-    profilePicture.setAttribute('class', 'navBut')
+        let menuIcon = new Image();
+        menuIcon.src = menuIconImg;
+        menuIcon.setAttribute('class', 'leftNavBut');
+        menuIcon.addEventListener('click', () => {
+            console.log('clicked'); 
+            if(sideMenu.id === ''){
+                sideMenu.id = 'invisible';
+            } else {
+                sideMenu.id = '';
+            };                  
+        });
+        leftMenu.appendChild(menuIcon);
+    
+        let homeIcon = new Image();
+        homeIcon.src = homeIconImg;
+        homeIcon.setAttribute('class', 'leftNavBut');
+        leftMenu.appendChild(homeIcon);
+    
+        let searchIcon = new Image();
+        searchIcon.src = searchIconImg;
+        searchIcon.setAttribute('class', 'leftNavBut');
+        leftMenu.appendChild(searchIcon);
+    };
+    
+    function importAllRightIcons() {  
+        //empty right menu placeholders
+        rightMenu.innerHTML = '';
+    
+        let addIcon = new Image();
+        addIcon.src = plusIconImg;
+        addIcon.setAttribute('class', 'navBut')
+    
+        let progressIcon = new Image();
+        progressIcon.src = progressIconImg;
+        progressIcon.setAttribute('class', 'navBut')
+    
+        let helpIcon = new Image();
+        helpIcon.src = helpIconImg;  
+        helpIcon.setAttribute('class', 'navBut')  
+    
+        let notifIcon = new Image();
+        notifIcon.src = notifIconImg;
+        notifIcon.setAttribute('class', 'navBut')
+        
+        let profilePicture = new Image();
+        profilePicture.src = profilePictureImg;
+        profilePicture.setAttribute('class', 'navBut')
+    
+        rightMenu.appendChild(addIcon);
+        rightMenu.appendChild(progressIcon);
+        rightMenu.appendChild(helpIcon);
+        rightMenu.appendChild(notifIcon);
+        rightMenu.appendChild(profilePicture);
+    };
 
-    rightMenu.appendChild(addIcon);
-    rightMenu.appendChild(progressIcon);
-    rightMenu.appendChild(helpIcon);
-    rightMenu.appendChild(notifIcon);
-    rightMenu.appendChild(profilePicture);
+    importAllLeftIcons();
+    importAllRightIcons();
 };
+
+function defaultSetup(){
+    let inboxLink = document.createElement('li');
+    const inboxLinkIcon = new Image();
+    inboxLinkIcon.src = emailIconImg;
+    const inboxText = document.createTextNode('Inbox');
+    inboxLink.appendChild(inboxLinkIcon);
+    inboxLink.appendChild(inboxText);
+    inboxLink.setAttribute('class', 'sideNavBut');
+
+    let todayLink = document.createElement('li');
+    const todayLinkIcon = new Image();
+    todayLinkIcon.src = calendarTodayImg;
+    const todayText = document.createTextNode('Today');
+    todayLink.appendChild(todayLinkIcon);
+    todayLink.appendChild(todayText);
+    todayLink.setAttribute('class', 'sideNavBut');
+
+    let upcomingLink = document.createElement('li');
+    const upcomingLinkIcon = new Image();
+    upcomingLinkIcon.src = calendarUpcomingImg;
+    const upcomingText = document.createTextNode('Upcoming');
+    upcomingLink.appendChild(upcomingLinkIcon);
+    upcomingLink.appendChild(upcomingText);
+    upcomingLink.setAttribute('class', 'sideNavBut');
+
+    let filterLink = document.createElement('li');
+    const filterLinkIcon = new Image();
+    filterLinkIcon.src = notifActiveIconImg;
+    const filterText = document.createTextNode('Filters & Labels');
+    filterLink.appendChild(filterLinkIcon);
+    filterLink.appendChild(filterText);
+    filterLink.setAttribute('class', 'sideNavBut');
+
+    defaultSideBar.appendChild(inboxLink);
+    defaultSideBar.appendChild(todayLink);
+    defaultSideBar.appendChild(upcomingLink);
+    defaultSideBar.appendChild(filterLink);
+};
+
 
 
 

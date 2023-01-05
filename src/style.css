@@ -14,7 +14,7 @@
 .leftMenu {
     display: flex;
     padding: 10px;
-    gap: 5px;
+    gap: 20px;
     align-items: center;
 }
 .rightMenu {
@@ -35,12 +35,22 @@ main {
     height: 100vh;
     align-items: left;    
 }
-.navBut {
+.navBut,
+.leftNavBut {
     width: 30px;
     height: 30px;
     color: black;
 }
-.navBut:hover {
+.navBut:hover,
+.leftNavBut:hover {
+    cursor: pointer;
+}
+.sideNavBut {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.sideNavBut:hover {
     cursor: pointer;
 }
 .defaultSideBar {

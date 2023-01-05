@@ -2,7 +2,7 @@
 import "./style.css";
 
 //import user interface
-import { changePage, importAllLeftIcons, importAllRightIcons } from "../userInterface";
+import { changePage, initHeadNav, initSideMenu } from "../userInterface";
 
 // check for user local save
 // populate project arrays with save data, or from a default if there are none in save
@@ -34,6 +34,6 @@ const newTodo = new todos({
 });
 
 window.onload = () => {
-    importAllRightIcons();
-    importAllLeftIcons();
+    initHeadNav();
+    initSideMenu();
 };
