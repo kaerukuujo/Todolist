@@ -83,6 +83,18 @@ main {
 .projectCard:hover {
     cursor: pointer;
 }
+.todoButton {
+    padding: 5px;
+}
+
+.todoList {
+    border: 1px solid;
+    background-color: #ddd;
+    padding: 5px;
+    width: max-content;
+    height: max-content;
+}
+
 #invisible {
     display: none;
 }

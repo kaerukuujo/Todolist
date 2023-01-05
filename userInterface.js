@@ -32,11 +32,11 @@ export function initSideMenu(){
         defaultSetup();
 
         projectPage.setAttribute('id', '');
-
     };
 
     initialSetup();    
     loadProjects();
+    loadTodos(todoDefault1);
 };
 
 export function initHeadNav(){
@@ -204,8 +204,44 @@ addProjects(projectDefault1);
 addProjects(projectDefault2);
 addProjects(projectDefault3);
 
+//---------------------------------------
+
+//placeholder todos
+
+let todoDefault1 = new todos({
+    description: 'hand in project to teacher',
+    dueDate: '10/10/94',
+    priority: '4',
+    notes: 'no notes required' ,
+    checklist: ['draft project', 'do project', 'check project', 'hand in project']
+});
+
+//---------------------------------------
+
 function addProjects(project){
     projectArray.push(project);
+}
+
+function loadTodos(todo){
+    let todoChecklist = todo.checklist;
+
+    //create todolist div
+
+    let todoList = document.createElement('div');
+    console.log(todo);
+    todoList.setAttribute('class', 'todoList');
+
+    //create div for checklist
+    //for each item in checklist, make a checkbox and add it to todolist 
+    //all add a para element for the checkbox
+
+    let todoListCheck = document.createElement('div');
+
+    let todoListChecklist = document.createElement('input');
+    todoListChecklist.setAttribute('type', 'checkbox')
+
+    projectPage.appendChild(todoList);
+
 }
 
 function loadProjects() {
@@ -235,6 +271,13 @@ function loadProjects() {
         projectDeadline.appendChild(projectDeadlineText);
         projectDiv.appendChild(projectDeadline);
 
+        //button to expand todo list
+        let todoButton = document.createElement('button');
+        let todoButtonText = document.createTextNode('Todo List');
+        todoButton.appendChild(todoButtonText);
+        todoButton.setAttribute('class', 'todoButton');
+        projectDiv.appendChild(todoButton);
+        
         projectPage.appendChild(projectDiv);
     })
     //make each project an array also that contains todos from save data (or default if no save data)
