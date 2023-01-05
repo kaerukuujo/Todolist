@@ -13,25 +13,7 @@ import { changePage, initHeadNav, initSideMenu } from "../userInterface";
 
 import { todos } from "../classes";
 import { projects } from "../classes";
-//use this template for creating new projects
-const newProject = new projects({
-    type: 'family', 
-    label: 'kids chores',
-    deadline: '12/10/94'
 
-});
-
-console.log(newProject);
-//use this template for creating new todos
-const newTodo = new todos({
-    title: 'washing up',
-    description: 'Do the washing up',
-    dueDate: '12/10/94',
-    priority: '4',
-    notes: 'no notes',
-    checklist: 'no checklist'
-
-});
 
 window.onload = () => {
     initHeadNav();

@@ -27,11 +27,12 @@ export class projects {
         type,
         label, 
         deadline,
+        todos
     })
     {
         this.type = type;
         this.label = label;
         this.deadline = deadline;
-        this.todos = [];
+        this.todos = todos;
     }
 };
