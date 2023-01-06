@@ -36,7 +36,7 @@ export function initSideMenu(){
 
     initialSetup();    
     loadProjects();
-    loadTodos(todoDefault1);
+    loadTodos(todoDefault1, document.querySelector('.todoCard'));
 };
 
 export function initHeadNav(){
@@ -77,7 +77,10 @@ export function initHeadNav(){
     
         let addIcon = new Image();
         addIcon.src = plusIconImg;
-        addIcon.setAttribute('class', 'navBut')
+        addIcon.setAttribute('class', 'navBut');
+        addIcon.addEventListener('click', () => {
+            setupProjectForm();
+        });
     
         let progressIcon = new Image();
         progressIcon.src = progressIconImg;
@@ -175,11 +178,52 @@ function changePage(requiredPage) {
     
 };
 
-function loadDom() {
-    //create a function to edit dom, this function must:
-    //add events to each button + add the functions they're made for.
+function setupProjectForm(){
+    //setup a form container
+    let newProjectForm = document.createElement('form');
+    newProjectForm.setAttribute('class', 'submitProject');
 
-    //swap out text placeholders in html with their image counterparts.
+    //add header 
+    let newProjectFormHeader = document.createElement('h2');
+    let newProjectFormHeaderText = document.createTextNode('Add a new Project:');
+    newProjectFormHeader.appendChild(newProjectFormHeaderText);
+    newProjectForm.appendChild(newProjectFormHeader);
+    
+    //input box for type
+    let newProjectType = document.createElement('input');
+    newProjectType.setAttribute('id', 'typeForm');
+    let newProjectTypeLabel = document.createElement('label');
+    newProjectTypeLabel.setAttribute('for', 'typeForm');
+    let newProjectTypeLabelText = document.createTextNode('Type:');
+    newProjectTypeLabel.appendChild(newProjectTypeLabelText);
+    newProjectForm.appendChild(newProjectTypeLabel);
+    newProjectForm.appendChild(newProjectType);
+
+    //input box for Label
+    let newProjectLabel = document.createElement('input');
+    newProjectLabel.setAttribute('id', 'labelForm');
+    let newProjectLabelLabel = document.createElement('label');
+    newProjectLabelLabel.setAttribute('for', 'labelForm');
+    let newProjectLabelLabelText = document.createTextNode('Label:');
+    newProjectLabelLabel.appendChild(newProjectLabelLabelText);
+    newProjectForm.appendChild(newProjectLabelLabel);
+    newProjectForm.appendChild(newProjectLabel);  
+    
+    //input box for deadline
+    let newProjectDeadline = document.createElement('input');
+    newProjectDeadline.setAttribute('id', 'deadlineForm');
+    let newProjectDeadlineLabel = document.createElement('label');
+    newProjectDeadlineLabel.setAttribute('for', 'deadlineForm');
+    let newProjectDeadlineLabelText = document.createTextNode('Deadline:');
+    newProjectDeadlineLabel.appendChild(newProjectDeadlineLabelText);
+    newProjectForm.appendChild(newProjectDeadlineLabel);
+    newProjectForm.appendChild(newProjectDeadline);
+
+    //submit button, take info from form and make a new project with it 
+
+
+    console.log('setup project');
+    projectPage.appendChild(newProjectForm);
 };
 
 let projectArray = [];
@@ -222,24 +266,38 @@ function addProjects(project){
     projectArray.push(project);
 }
 
-function loadTodos(todo){
+function loadTodos(todo, todoContainer){
     let todoChecklist = todo.checklist;
 
     //create todolist div
 
     let todoList = document.createElement('div');
-    todoList.setAttribute('class', 'todoListDiv');
     console.log(todo);
-    todoList.setAttribute('class', 'todoList');
+    todoList.setAttribute('class', 'todoList');    
+
+    //create div for checklist
+    //for each item in checklist, make a checkbox and add it to todolist 
+    //all add a para element for the checkbox
+
+    let todoListDescription  = document.createElement('p');
+    let todoListDescriptionText = document.createTextNode(`${todo.description}`);
+    todoListDescription.appendChild(todoListDescriptionText);
+    todoList.appendChild(todoListDescription);
+
+    let todoListDueDate = document.createElement('p');
+    let todoListDueDateText = document.createTextNode(`Due: ${todo.dueDate}`);
+    todoListDueDate.appendChild(todoListDueDateText);
+    todoList.appendChild(todoListDueDate);
+
+    let todoListPriority = document.createElement('p');
+    let todoListPriorityText = document.createTextNode(`Priority: ${todo.priority}`);
+    todoListPriority.appendChild(todoListPriorityText);
+    todoList.appendChild(todoListPriority);
 
     let todoListNotes = document.createElement('p');
     let todoListNotesText = document.createTextNode(`Notes: ${todo.notes}`);
     todoListNotes.appendChild(todoListNotesText);
     todoList.appendChild(todoListNotes);
-
-    //create div for checklist
-    //for each item in checklist, make a checkbox and add it to todolist 
-    //all add a para element for the checkbox
 
     let todoListCheckHeader = document.createElement('h2');
     let todoListCheckHeaderText = document.createTextNode('CheckList:');
@@ -262,8 +320,16 @@ function loadTodos(todo){
         todoList.append(todoListCheck);
     });
     
-    // todoList.setAttribute('id', '');
-    projectPage.appendChild(todoList);
+    let todoDeleteButton = document.createElement('button');
+    let todoDeleteButtonText = document.createTextNode('Delete Todo');
+    todoDeleteButton.appendChild(todoDeleteButtonText);
+    todoDeleteButton.addEventListener('click', () => {
+        todoContainer.innerHTML = '';
+    });
+    todoList.appendChild(todoDeleteButton);
+
+
+    todoContainer.appendChild(todoList);
 
 };
 
@@ -299,7 +365,20 @@ function loadProjects() {
         let todoButtonText = document.createTextNode('Todo List');
         todoButton.appendChild(todoButtonText);
         todoButton.setAttribute('class', 'todoButton');
+        todoButton.addEventListener('click', () => {
+            if(todoCard.id === ''){
+                todoCard.id = 'invisible';
+            } else {
+                todoCard.id = '';
+            };
+        })
         projectDiv.appendChild(todoButton);
+
+        //checks todo array for a todo with matching ID and adds it its card
+        let todoCard = document.createElement('div');
+        todoCard.setAttribute('id', 'invisible');
+        todoCard.setAttribute('class', 'todoCard');
+        projectDiv.appendChild(todoCard);
         
         projectPage.appendChild(projectDiv);
     })
