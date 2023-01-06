@@ -228,21 +228,44 @@ function loadTodos(todo){
     //create todolist div
 
     let todoList = document.createElement('div');
+    todoList.setAttribute('class', 'todoListDiv');
     console.log(todo);
     todoList.setAttribute('class', 'todoList');
+
+    let todoListNotes = document.createElement('p');
+    let todoListNotesText = document.createTextNode(`Notes: ${todo.notes}`);
+    todoListNotes.appendChild(todoListNotesText);
+    todoList.appendChild(todoListNotes);
 
     //create div for checklist
     //for each item in checklist, make a checkbox and add it to todolist 
     //all add a para element for the checkbox
 
-    let todoListCheck = document.createElement('div');
+    let todoListCheckHeader = document.createElement('h2');
+    let todoListCheckHeaderText = document.createTextNode('CheckList:');
+    todoListCheckHeader.appendChild(todoListCheckHeaderText);
+        
+    todoList.appendChild(todoListCheckHeader);
 
-    let todoListChecklist = document.createElement('input');
-    todoListChecklist.setAttribute('type', 'checkbox')
+    todoChecklist.forEach((checkItem) => {
+        let todoListCheck = document.createElement('div');          
 
+        let todoListChecklist = document.createElement('input');
+        todoListChecklist.setAttribute('type', 'checkbox');
+        let todoListChecklistP = document.createElement('p');
+        let todoListChecklistPText = document.createTextNode(`${checkItem}`);
+        todoListChecklistP.appendChild(todoListChecklistPText);
+    
+        todoListCheck.appendChild(todoListChecklist);
+        todoListCheck.appendChild(todoListChecklistP);    
+        todoListCheck.setAttribute('class', 'checkboxItem');
+        todoList.append(todoListCheck);
+    });
+    
+    // todoList.setAttribute('id', '');
     projectPage.appendChild(todoList);
 
-}
+};
 
 function loadProjects() {
     //create an array of projects from save data (or default if no save data)

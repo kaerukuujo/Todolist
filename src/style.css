@@ -88,11 +88,18 @@ main {
 }
 
 .todoList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     border: 1px solid;
     background-color: #ddd;
     padding: 5px;
     width: max-content;
     height: max-content;
+}
+.checkboxItem {
+    display: flex;
+    gap: 5px;
 }
 
 #invisible {
