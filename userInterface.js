@@ -23,6 +23,8 @@ let defaultSideBar = document.querySelector('.defaultSideBar');
 let landingPage = document.querySelector('.landingPage');
 let projectPage = document.querySelector('.projectPage');
 let inboxPage = document.querySelector('.inboxPage');
+let newProjectForm = document.createElement('form');
+let submitFormOpen = false;
 
 
 export function initSideMenu(){
@@ -79,7 +81,14 @@ export function initHeadNav(){
         addIcon.src = plusIconImg;
         addIcon.setAttribute('class', 'navBut');
         addIcon.addEventListener('click', () => {
-            setupProjectForm();
+            if(submitFormOpen === false){
+                setupProjectForm();
+            } else if(submitFormOpen === true) {
+                newProjectForm.remove();
+                newProjectForm.innerHTML = '';
+                submitFormOpen = false;
+            }
+            
         });
     
         let progressIcon = new Image();
@@ -179,8 +188,7 @@ function changePage(requiredPage) {
 };
 
 function setupProjectForm(){
-    //setup a form container
-    let newProjectForm = document.createElement('form');
+    //setup a form container    
     newProjectForm.setAttribute('class', 'submitProject');
 
     //add header 
@@ -220,10 +228,42 @@ function setupProjectForm(){
     newProjectForm.appendChild(newProjectDeadline);
 
     //submit button, take info from form and make a new project with it 
+    let newProjectSubmitButton = document.createElement('div');
+    newProjectSubmitButton.setAttribute('class', 'submitBtn');
+    let newProjectSubmitButtonText = document.createTextNode('Submit');
+    newProjectSubmitButton.appendChild(newProjectSubmitButtonText);
+    newProjectSubmitButton.addEventListener('click', () => {
+        console.log('submit data'); 
+        let submitTypeValue = document.getElementById('typeForm').value;
+        let submitLabelValue = document.getElementById('labelForm').value;  
+        let submitDeadlineValue = document.getElementById('deadlineForm').value; 
+        if(submitTypeValue !== '' && submitLabelValue !== '' && submitDeadlineValue !== ''){
+            let newProject = new projects({
+                type: submitTypeValue,
+                label: submitLabelValue,
+                deadline: submitDeadlineValue
+            });
+            
+            console.table(newProject);
+            projectArray.push(newProject);
+            loadProjects();
+
+            newProjectForm.remove();
+            newProjectForm.innerHTML = '';
+            submitFormOpen = false;
+            submitTypeValue = '';
+            submitLabelValue = '';
+            submitDeadlineValue = '';
+            
+        };
+    });
+    newProjectForm.appendChild(newProjectSubmitButton);
+
 
 
     console.log('setup project');
-    projectPage.appendChild(newProjectForm);
+    submitFormOpen = true;
+    rightMenu.appendChild(newProjectForm);
 };
 
 let projectArray = [];
@@ -232,7 +272,7 @@ let projectArray = [];
 let projectDefault1 = new projects({
     type: 'work',
     label: 'hand over project',
-    deadline: '12/10/94'
+    deadline: '12/10/94',
 });
 let projectDefault2 = new projects({
     type: 'family',

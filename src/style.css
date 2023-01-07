@@ -108,12 +108,26 @@ main {
 } */
 .submitProject {
     display: flex;
+    position: fixed;
+    top: 60px;
+    right: 10px;
     flex-direction: column;
     height: max-content;
     border-radius: 0px 10px 0px 0px;
+    background-color: white;
     gap: 10px;
     padding: 10px;    
     border: 1px solid;
+}
+.submitBtn {
+    display: flex;
+    border: 1px solid;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.submitBtn:hover {
+    cursor: pointer;
 }
 
 #invisible {

@@ -27,12 +27,14 @@ export class projects {
         type,
         label, 
         deadline,
+        hasTodos,
         todos
     })
     {
         this.type = type;
         this.label = label;
         this.deadline = deadline;
+        this.hasTodos = false;
         this.todos = todos;
     }
 };
