@@ -19,3 +19,8 @@ window.onload = () => {
     initHeadNav();
     initSideMenu();
 };
+
+//TODO LIST
+   //Complete the commented bits in UI file, load proj and load todo
+   //look into save data (localStorage)
+   //look into time formatting package (date-fns)

@@ -314,7 +314,7 @@ function addTodo(todo){
 };
 
 function loadTodos(todo, location){
-    todoArray.forEach((todoItem) => {
+    todoArray.forEach((todoItem) => {        
         console.log(location.className);
         console.log(todo.location);
         if(location.className === todo.location){
@@ -375,7 +375,9 @@ function loadTodos(todo, location){
             let todoDeleteButtonText = document.createTextNode('Delete Todo');
             todoDeleteButton.appendChild(todoDeleteButtonText);
             todoDeleteButton.addEventListener('click', () => {
-                projectTodoContainer.innerHTML = '';
+                location.innerHTML = '';
+                todoArray.splice(todoArray.indexOf(todo), 1);
+                console.log(todoArray);
             });
             todoList.appendChild(todoDeleteButton);
             location.appendChild(todoList);    
@@ -392,7 +394,8 @@ function loadProjects() {
         //creates empty project card div
         let projectDiv = document.createElement('div');
         projectDiv.setAttribute('class', 'projectCard');
-    
+
+        //add a delete button for the project card in the top right hand corner of card div    
 
         //adds the type property to the card
         let projectType = document.createElement('p');
@@ -425,6 +428,9 @@ function loadProjects() {
             let todoAddButtonText = document.createTextNode('Add Todo');
             todoAddButton.appendChild(todoAddButtonText);
             todoAddButton.setAttribute('class', 'todoButton');
+            //add event that creates a form to make a new todo within the project
+            //have that form submit the info to create todo class
+            //reload the todolist by calling loadTodos
             projectDiv.appendChild(todoAddButton);
         } else {
             let todoExpandButton = document.createElement('div');
