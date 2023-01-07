@@ -2,6 +2,7 @@
 export class todos {
     //create new todo item
     constructor({
+        location,
         title, 
         description, 
         dueDate,
@@ -10,6 +11,7 @@ export class todos {
         checklist
     })
     {
+        this.location = location;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;

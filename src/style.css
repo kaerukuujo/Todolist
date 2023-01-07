@@ -80,11 +80,19 @@ main {
     border-radius: 0px 10px 0px 0px;
     height: max-content;
 }
-.projectCard:hover {
+/* .projectCard:hover {
     cursor: pointer;
-}
+} */
 .todoButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid;
     padding: 5px;
+}
+.todoButton:hover {
+    cursor: pointer;
 }
 
 .todoList {

@@ -24,6 +24,7 @@ let landingPage = document.querySelector('.landingPage');
 let projectPage = document.querySelector('.projectPage');
 let inboxPage = document.querySelector('.inboxPage');
 let newProjectForm = document.createElement('form');
+let currentProjectTodoContainer;
 let submitFormOpen = false;
 
 
@@ -38,7 +39,6 @@ export function initSideMenu(){
 
     initialSetup();    
     loadProjects();
-    loadTodos(todoDefault1, document.querySelector('.todoCard'));
 };
 
 export function initHeadNav(){
@@ -267,6 +267,7 @@ function setupProjectForm(){
 };
 
 let projectArray = [];
+let todoArray = [];
 
 //placeholder projects
 let projectDefault1 = new projects({
@@ -293,6 +294,7 @@ addProjects(projectDefault3);
 //placeholder todos
 
 let todoDefault1 = new todos({
+    location: 'hand over project',
     description: 'hand in project to teacher',
     dueDate: '10/10/94',
     priority: '4',
@@ -300,77 +302,86 @@ let todoDefault1 = new todos({
     checklist: ['draft project', 'do project', 'check project', 'hand in project']
 });
 
+addTodo(todoDefault1);
+
 //---------------------------------------
 
 function addProjects(project){
     projectArray.push(project);
-}
+};
+function addTodo(todo){
+    todoArray.push(todo);
+};
 
-function loadTodos(todo, todoContainer){
-    let todoChecklist = todo.checklist;
+function loadTodos(todo, location){
+    todoArray.forEach((todoItem) => {
+        console.log(location.className);
+        console.log(todo.location);
+        if(location.className === todo.location){
+            let todoChecklist = todo.checklist;
 
-    //create todolist div
-
-    let todoList = document.createElement('div');
-    console.log(todo);
-    todoList.setAttribute('class', 'todoList');    
-
-    //create div for checklist
-    //for each item in checklist, make a checkbox and add it to todolist 
-    //all add a para element for the checkbox
-
-    let todoListDescription  = document.createElement('p');
-    let todoListDescriptionText = document.createTextNode(`${todo.description}`);
-    todoListDescription.appendChild(todoListDescriptionText);
-    todoList.appendChild(todoListDescription);
-
-    let todoListDueDate = document.createElement('p');
-    let todoListDueDateText = document.createTextNode(`Due: ${todo.dueDate}`);
-    todoListDueDate.appendChild(todoListDueDateText);
-    todoList.appendChild(todoListDueDate);
-
-    let todoListPriority = document.createElement('p');
-    let todoListPriorityText = document.createTextNode(`Priority: ${todo.priority}`);
-    todoListPriority.appendChild(todoListPriorityText);
-    todoList.appendChild(todoListPriority);
-
-    let todoListNotes = document.createElement('p');
-    let todoListNotesText = document.createTextNode(`Notes: ${todo.notes}`);
-    todoListNotes.appendChild(todoListNotesText);
-    todoList.appendChild(todoListNotes);
-
-    let todoListCheckHeader = document.createElement('h2');
-    let todoListCheckHeaderText = document.createTextNode('CheckList:');
-    todoListCheckHeader.appendChild(todoListCheckHeaderText);
+            //create todolist div
         
-    todoList.appendChild(todoListCheckHeader);
-
-    todoChecklist.forEach((checkItem) => {
-        let todoListCheck = document.createElement('div');          
-
-        let todoListChecklist = document.createElement('input');
-        todoListChecklist.setAttribute('type', 'checkbox');
-        let todoListChecklistP = document.createElement('p');
-        let todoListChecklistPText = document.createTextNode(`${checkItem}`);
-        todoListChecklistP.appendChild(todoListChecklistPText);
-    
-        todoListCheck.appendChild(todoListChecklist);
-        todoListCheck.appendChild(todoListChecklistP);    
-        todoListCheck.setAttribute('class', 'checkboxItem');
-        todoList.append(todoListCheck);
-    });
-    
-    let todoDeleteButton = document.createElement('button');
-    let todoDeleteButtonText = document.createTextNode('Delete Todo');
-    todoDeleteButton.appendChild(todoDeleteButtonText);
-    todoDeleteButton.addEventListener('click', () => {
-        todoContainer.innerHTML = '';
-    });
-    todoList.appendChild(todoDeleteButton);
-
-
-    todoContainer.appendChild(todoList);
-
+            let todoList = document.createElement('div');
+            console.log(todo);
+            todoList.setAttribute('class', 'todoList');    
+        
+            //create div for checklist
+            //for each item in checklist, make a checkbox and add it to todolist 
+            //all add a para element for the checkbox
+        
+            let todoListDescription  = document.createElement('p');
+            let todoListDescriptionText = document.createTextNode(`${todo.description}`);
+            todoListDescription.appendChild(todoListDescriptionText);
+            todoList.appendChild(todoListDescription);
+        
+            let todoListDueDate = document.createElement('p');
+            let todoListDueDateText = document.createTextNode(`Due: ${todo.dueDate}`);
+            todoListDueDate.appendChild(todoListDueDateText);
+            todoList.appendChild(todoListDueDate);
+        
+            let todoListPriority = document.createElement('p');
+            let todoListPriorityText = document.createTextNode(`Priority: ${todo.priority}`);
+            todoListPriority.appendChild(todoListPriorityText);
+            todoList.appendChild(todoListPriority);
+        
+            let todoListNotes = document.createElement('p');
+            let todoListNotesText = document.createTextNode(`Notes: ${todo.notes}`);
+            todoListNotes.appendChild(todoListNotesText);
+            todoList.appendChild(todoListNotes);
+        
+            let todoListCheckHeader = document.createElement('h2');
+            let todoListCheckHeaderText = document.createTextNode('CheckList:');
+            todoListCheckHeader.appendChild(todoListCheckHeaderText);
+                
+            todoList.appendChild(todoListCheckHeader);
+        
+            todoChecklist.forEach((checkItem) => {
+                let todoListCheck = document.createElement('div');          
+        
+                let todoListChecklist = document.createElement('input');
+                todoListChecklist.setAttribute('type', 'checkbox');
+                let todoListChecklistP = document.createElement('p');
+                let todoListChecklistPText = document.createTextNode(`${checkItem}`);
+                todoListChecklistP.appendChild(todoListChecklistPText);
+            
+                todoListCheck.appendChild(todoListChecklist);
+                todoListCheck.appendChild(todoListChecklistP);    
+                todoListCheck.setAttribute('class', 'checkboxItem');
+                todoList.append(todoListCheck);
+            });
+            
+            let todoDeleteButton = document.createElement('button');
+            let todoDeleteButtonText = document.createTextNode('Delete Todo');
+            todoDeleteButton.appendChild(todoDeleteButtonText);
+            todoDeleteButton.addEventListener('click', () => {
+                projectTodoContainer.innerHTML = '';
+            });
+            todoList.appendChild(todoDeleteButton);
+            location.appendChild(todoList);    
+        };        
+    });        
+    // console.log(location);
 };
 
 function loadProjects() {
@@ -381,6 +392,7 @@ function loadProjects() {
         //creates empty project card div
         let projectDiv = document.createElement('div');
         projectDiv.setAttribute('class', 'projectCard');
+    
 
         //adds the type property to the card
         let projectType = document.createElement('p');
@@ -400,28 +412,39 @@ function loadProjects() {
         projectDeadline.appendChild(projectDeadlineText);
         projectDiv.appendChild(projectDeadline);
 
-        //button to expand todo list
-        let todoButton = document.createElement('button');
-        let todoButtonText = document.createTextNode('Todo List');
-        todoButton.appendChild(todoButtonText);
-        todoButton.setAttribute('class', 'todoButton');
-        todoButton.addEventListener('click', () => {
-            if(todoCard.id === ''){
-                todoCard.id = 'invisible';
-            } else {
-                todoCard.id = '';
-            };
-        })
-        projectDiv.appendChild(todoButton);
+        //create a todoContainer with an id 
+        let projectTodoContainer = document.createElement('div');
+        projectTodoContainer.setAttribute('class', `${project.label}`);
+        projectTodoContainer.id = 'invisible';
+        projectDiv.appendChild(projectTodoContainer);
 
-        //checks todo array for a todo with matching ID and adds it its card
-        let todoCard = document.createElement('div');
-        todoCard.setAttribute('id', 'invisible');
-        todoCard.setAttribute('class', 'todoCard');
-        projectDiv.appendChild(todoCard);
-        
+        loadTodos(todoDefault1, projectTodoContainer);
+
+        if(projectTodoContainer.innerHTML === ''){
+            let todoAddButton = document.createElement('div');
+            let todoAddButtonText = document.createTextNode('Add Todo');
+            todoAddButton.appendChild(todoAddButtonText);
+            todoAddButton.setAttribute('class', 'todoButton');
+            projectDiv.appendChild(todoAddButton);
+        } else {
+            let todoExpandButton = document.createElement('div');
+            let todoExpandButtonText = document.createTextNode('Show Todos');
+            todoExpandButton.appendChild(todoExpandButtonText);
+            todoExpandButton.addEventListener('click', () => {
+                if(projectTodoContainer.id === 'invisible'){
+                    projectTodoContainer.id = '';
+                } else if (projectTodoContainer.id === ''){
+                    projectTodoContainer.id = 'invisible';
+                };                
+            });
+            todoExpandButton.setAttribute('class', 'todoButton');
+            projectDiv.appendChild(todoExpandButton);
+        };
+
         projectPage.appendChild(projectDiv);
     })
+
+    
     //make each project an array also that contains todos from save data (or default if no save data)
     //use the array to populate the project page with a card for each project
       //cards should be clickable and display the label, the type of card it is + the deadline
@@ -437,3 +460,4 @@ function loadProjects() {
 //expand individual todos to see/edit details
 
 //delete todos
+
